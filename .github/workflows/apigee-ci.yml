@@ -20,7 +20,8 @@ jobs:
       - name: 'Install Apigee Acidt'
         run: |
           git clone https://github.com/g-lalevee/apigee-acidt.git
-          ls 
+          ls apigee-acidt
+          ./apigee-acidt/bin/acidt help
 
 
 
