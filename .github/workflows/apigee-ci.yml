@@ -27,6 +27,8 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          service_account: 'azure-pipeline-pipeline@bap-emea-apigee-5.iam.gserviceaccount.com'
+
 
 
       # google-github-actions: Install and configure gcloud (alpha for Apigee commands)
@@ -37,7 +39,7 @@ jobs:
 #        run: 'gcloud info'
 
       # Retreive list of connections
-      - name: 'Install Apigee Acidt'
+      - name: 'List Apigee Connections'
         run: |
           export TOKEN=$(gcloud auth print-access-token)
           ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r europe-west1 --debug
