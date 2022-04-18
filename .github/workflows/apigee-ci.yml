@@ -1,0 +1,42 @@
+
+name: Apigee Connectotr / Integration / Proxy CI 
+
+on: push
+  
+env:
+  APIGEE_ORG: <YOUR-ORG>
+  APIGEE_CONFIG_ENV: <YOUR-CONF-ENV>
+  TEST_HOST: <YOUR-HOSTNAME>
+
+jobs:
+  Apigee-Deploy:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      # Apigee Acidt: install from GitHub g-lalevee/apigee-acidt
+
+      - name: 'Install Apigee Acidt'
+        run: |
+          git clone git@github.com:g-lalevee/apigee-acidt.git
+          ls 
+
+
+
+      # google-github-actions: Authenticate against Google Cloud with Service Account (Secret) 
+#      - id: 'auth'
+#        uses: 'google-github-actions/auth@v0'
+#        with:
+#          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+
+      # google-github-actions: Install and configure gcloud (alpha for Apigee commands)
+#      - name: 'Set up Cloud SDK'
+#        uses: 'google-github-actions/setup-gcloud@v0'
+#        with:
+#          install_components: 'alpha'
+
+#      - name: 'Use gcloud CLI'
+#        run: 'gcloud info'
+
