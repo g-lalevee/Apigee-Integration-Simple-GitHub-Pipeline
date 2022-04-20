@@ -1,0 +1,135 @@
+{
+  "description": "BigQuery Filters",
+  "lastModifierEmail": "",
+  "triggerConfigs": [{
+    "label": "API Trigger",
+    "startTasks": [{
+      "taskId": "4",
+      "condition": "$productID$\u003d\"\""
+    }, {
+      "taskId": "1",
+      "condition": "$productID$ !\u003d \"\""
+    }],
+    "properties": {
+      "Trigger name": "products_API_1"
+    },
+    "triggerType": "API",
+    "triggerNumber": "1",
+    "triggerId": "api_trigger/products_API_1"
+  }],
+  "taskConfigs": [{
+    "task": "GenericConnectorTask",
+    "taskId": "4",
+    "parameters": {
+      "listEntitiesSortByColumns": {
+        "key": "listEntitiesSortByColumns",
+        "value": {
+          "stringValue": "$`Task_4_listEntitiesSortByColumns`$"
+        }
+      },
+      "filterClause": {
+        "key": "filterClause",
+        "value": {
+          "stringValue": "$`Task_4_filterClause`$"
+        }
+      },
+      "listEntitiesPageToken": {
+        "key": "listEntitiesPageToken",
+        "value": {
+          "stringValue": "$`Task_4_listEntitiesPageToken`$"
+        }
+      },
+      "entityType": {
+        "key": "entityType",
+        "value": {
+          "stringValue": "products"
+        }
+      },
+      "listEntitiesPageSize": {
+        "key": "listEntitiesPageSize",
+        "value": {
+          "stringValue": "$`Task_4_listEntitiesPageSize`$"
+        }
+      },
+      "listEntitiesNextPageToken": {
+        "key": "listEntitiesNextPageToken",
+        "value": {
+          "stringValue": "$`Task_4_listEntitiesNextPageToken`$"
+        }
+      },
+      "config": {
+        "key": "config",
+        "value": {
+          "jsonValue": "{\n  \u0027@type\u0027: \u0027type.googleapis.com/enterprise.crm.eventbus.proto.connectors.GenericConnectorTaskConfig\u0027,\n  \u0027connection\u0027: {\n    \u0027connectionName\u0027: \u0027projects/CONNECTOR-PROJECT-ID/locations/CONNECTOR-LOCATION/connections/CONNECTOR-NAME\u0027,\n    \u0027serviceName\u0027: \u0027projects/CONNECTOR-PROJECT-ID/locations/CONNECTOR-LOCATION/namespaces/connectors/services/istio-ingressgateway-connectors\u0027,\n    \u0027connectorVersion\u0027: \u0027projects/CONNECTOR-PROJECT-ID/locations/global/providers/gcp/connectors/bigquery/versions/1\u0027\n  },\n  \u0027operation\u0027: \u0027LIST_ENTITIES\u0027\n}"
+        }
+      },
+      "connectorOutputPayload": {
+        "key": "connectorOutputPayload",
+        "value": {
+          "stringValue": "$`Task_4_connectorOutputPayload`$"
+        }
+      }
+    },
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "List Products"
+  }, {
+    "task": "FieldMappingTask",
+    "taskId": "1",
+    "parameters": {
+      "FieldMappingConfigTaskParameterKey": {
+        "key": "FieldMappingConfigTaskParameterKey",
+        "value": {
+          "jsonValue": "{\n  \u0027@type\u0027: \u0027type.googleapis.com/enterprise.crm.eventbus.proto.FieldMappingConfig\u0027,\n  \u0027mappedFields\u0027: [{\n    \u0027inputField\u0027: {\n      \u0027fieldType\u0027: \u0027STRING_VALUE\u0027,\n      \u0027transformExpression\u0027: {\n        \u0027initialValue\u0027: {\n          \u0027literalValue\u0027: {\n            \u0027stringValue\u0027: \u0027id\\u003d\\u0027\u0027\n          }\n        },\n        \u0027transformationFunctions\u0027: [{\n          \u0027functionType\u0027: {\n            \u0027stringFunction\u0027: {\n              \u0027functionName\u0027: \u0027CONCAT\u0027\n            }\n          },\n          \u0027parameters\u0027: [{\n            \u0027initialValue\u0027: {\n              \u0027referenceValue\u0027: \u0027$productID$\u0027\n            }\n          }]\n        }, {\n          \u0027functionType\u0027: {\n            \u0027stringFunction\u0027: {\n              \u0027functionName\u0027: \u0027CONCAT\u0027\n            }\n          },\n          \u0027parameters\u0027: [{\n            \u0027initialValue\u0027: {\n              \u0027literalValue\u0027: {\n                \u0027stringValue\u0027: \u0027\\u0027\u0027\n              }\n            }\n          }]\n        }]\n      }\n    },\n    \u0027outputField\u0027: {\n      \u0027referenceKey\u0027: \u0027$`Task_4_filterClause`$\u0027,\n      \u0027fieldType\u0027: \u0027STRING_VALUE\u0027,\n      \u0027cardinality\u0027: \u0027OPTIONAL\u0027\n    }\n  }]\n}"
+        }
+      }
+    },
+    "nextTasks": [{
+      "taskId": "4"
+    }],
+    "taskExecutionStrategy": "WHEN_ALL_SUCCEED",
+    "displayName": "Set Filters"
+  }],
+  "integrationParameters": [{
+    "key": "`Task_4_listEntitiesPageSize`",
+    "dataType": "INT_VALUE",
+    "displayName": "`Task_4_listEntitiesPageSize`",
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_listEntitiesPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_listEntitiesPageToken`",
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_listEntitiesSortByColumns`",
+    "dataType": "STRING_ARRAY",
+    "displayName": "`Task_4_listEntitiesSortByColumns`",
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_filterClause`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_filterClause`",
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_listEntitiesNextPageToken`",
+    "dataType": "STRING_VALUE",
+    "displayName": "`Task_4_listEntitiesNextPageToken`",
+    "isTransient": true,
+    "producer": "1_4"
+  }, {
+    "key": "`Task_4_connectorOutputPayload`",
+    "dataType": "JSON_VALUE",
+    "displayName": "`Task_4_connectorOutputPayload`",
+    "inputOutputType": "OUT",
+    "isTransient": true,
+    "producer": "1_4",
+    "jsonSchema": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"id\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      },\n      \"name\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      },\n      \"description\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      },\n      \"picture\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      },\n      \"priceUsd\": {\n        \"type\": [\"number\", \"null\"],\n        \"readOnly\": false\n      },\n      \"categories\": {\n        \"type\": [\"string\", \"null\"],\n        \"readOnly\": false\n      }\n    }\n  }\n}"
+  }, {
+    "key": "productID",
+    "dataType": "STRING_VALUE",
+    "defaultValue": {
+      "stringValue": ""
+    },
+    "displayName": "productID",
+    "inputOutputType": "IN"
+  }]
+}

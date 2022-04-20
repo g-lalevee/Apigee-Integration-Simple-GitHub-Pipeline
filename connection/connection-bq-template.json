@@ -1,0 +1,18 @@
+{
+  "connectorVersion": "projects/BQ-PROJECT-ID/locations/global/providers/gcp/connectors/bigquery/versions/1",
+  "configVariables": [
+    {
+      "key": "project_id",
+      "stringValue": "BQ-PROJECT-ID"
+    },
+    {
+      "key": "dataset_id",
+      "stringValue": "BQ-DATASET-ID"
+    }
+  ],
+  "authConfig": {},
+  "serviceAccount": "SERVICE-ACCOUNT"
+}
+
+
+

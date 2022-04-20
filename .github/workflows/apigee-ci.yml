@@ -4,10 +4,25 @@ name: Apigee Connectotr / Integration / Proxy CI
 on: push
   
 env:
-#  APIGEE_ORG: 
+  # Connection
+  CONNECTOR-PROJECT-ID: "bap-emea-apigee-5"
+  CONNECTOR-NAME: "cl-bqdemo-1"
+  CONNECTOR-LOCATION: "europe-west1"
+  SERVICE-ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
+
+  # Big Query DataSet
+  BQ-PROJECT-ID: "bap-emea-apigee-5"
+  BQ-DATASET-ID: "ApigeeDemos"
+  
+  # Integration
+  INTEGRATION-NAME: "cl-bqdemo-1"
+  INTEGRATION-LOCATION: "us"
+
+  #  Apigee: 
   APIGEE_ORG: bap-emea-apigee-5
   APIGEE_CONFIG_ENV: <YOUR-CONF-ENV>
   TEST_HOST: <YOUR-HOSTNAME>
+
 
 jobs:
   Apigee-Deploy:
@@ -27,19 +42,38 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-          service_account: 'azure-pipeline-pipeline@bap-emea-apigee-5.iam.gserviceaccount.com'
-
 
 
       # google-github-actions: Install and configure gcloud (alpha for Apigee commands)
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v0'
 
-#      - name: 'Use gcloud CLI'
-#        run: 'gcloud info'
 
-      # Retreive list of connections
+      # Retrieve list of connections
       - name: 'List Apigee Connections'
         run: |
           export TOKEN=$(gcloud auth print-access-token)
-          ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r europe-west1 --debug
+          ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r $CONNECTOR-LOCATION  --debug
+
+      # Create new Connection
+      - name: 'Create Apigee Connection'
+        run: |
+          sed -i "s/BQ-PROJECT-ID/$BQ-PROJECT-ID/g" ./connection/connection-bq-template.json 
+          sed -i "s/BQ-DATASET-ID/$BQ-DATASET-ID/g" ./connection/connection-bq-template.json 
+          sed -i "s/SERVICE-ACCOUNT/$SERVICE-ACCOUNT/g" ./connection/connection-bq-template.json 
+
+          export TOKEN=$(gcloud auth print-access-token)
+
+          ./apigee-acidt/bin/acidt connection create -o $CONNECTOR-PROJECT-ID -t $TOKEN -r $CONNECTOR-LOCATION --name $CONNECTOR-NAME --file ./connection/connection-bq-template.json 
+
+      # Create new Integration
+      - name: 'Create Apigee Integration'
+        run: |
+          sed -i "s/CONNECTOR-PROJECT-ID/$CONNECTOR-PROJECT-ID/g" ./integration/integration-bq-template.json
+          sed -i "s/CONNECTOR-NAME/$CONNECTOR-NAME/g" ./integration/integration-bq-template.json
+          sed -i "s/CONNECTOR-LOCATION/$CONNECTOR-LOCATION/g" ./integration/integration-bq-template.json
+
+          export TOKEN=$(gcloud auth print-access-token)
+
+          ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR-PROJECT-ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION-NAME --file ./integration/integration-bq-template.json
+          ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR-PROJECT-ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION-NAME
