@@ -65,7 +65,7 @@ jobs:
 
           export TOKEN=$(gcloud auth print-access-token)
 
-          #./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug
+          ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug
 
 
       # Create new Integration
@@ -76,16 +76,13 @@ jobs:
           # retrieve Connector serviceName
           ./apigee-acidt/bin/acidt connection download -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --directory . --debug
           CONNECTOR_SERVICE_DIRECTORY=$(cat $CONNECTOR_NAME.json | grep "serviceDirectory" | cut -d ':' -f2 | tr -d '"' | xargs)
-          
-          echo "----"
-          echo $CONNECTOR_SERVICE_DIRECTORY
-          echo "---------"
-
-          # update Integration configuration file
+ 
+          # update Integration configuration file with new connection parameters
           sed -i "s/CONNECTOR_PROJECT_ID/$CONNECTOR_PROJECT_ID/g" ./integration/integration-bq-template.json
           sed -i "s/CONNECTOR_NAME/$CONNECTOR_NAME/g" ./integration/integration-bq-template.json
           sed -i "s/CONNECTOR_LOCATION/$CONNECTOR_LOCATION/g" ./integration/integration-bq-template.json
           sed -i "s@CONNECTOR_SERVICE_DIRECTORY@$CONNECTOR_SERVICE_DIRECTORY@g" ./integration/integration-bq-template.json
 
+          # create and deploy integration
           ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json --debug
           ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --debug
