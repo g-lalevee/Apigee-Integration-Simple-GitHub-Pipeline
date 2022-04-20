@@ -58,7 +58,8 @@ jobs:
       # Create new Connection
       - name: 'Create Apigee Connection'
         run: |
-          sed -i "s/BQ-PROJECT-ID/$BQ-PROJECT-ID/g" ./connection/connection-bq-template.json 
+          sed -i "s/CONNECTOR_PROJECT_ID/$CONNECTOR_PROJECT_ID/g" ./connection/connection-bq-template.json 
+          sed -i "s/BQ_PROJECT_ID/$BQ_PROJECT_ID/g" ./connection/connection-bq-template.json 
           sed -i "s/BQ_DATASET_ID/$BQ_DATASET_ID/g" ./connection/connection-bq-template.json 
           sed -i "s/SERVICE_ACCOUNT/$SERVICE_ACCOUNT/g" ./connection/connection-bq-template.json 
 
