@@ -63,6 +63,11 @@ jobs:
           sed -i "s/SERVICE_ACCOUNT/$SERVICE_ACCOUNT/g" ./connection/connection-bq-template.json 
 
           export TOKEN=$(gcloud auth print-access-token)
+          echo "----------------"
+          cat  ./connection/connection-bq-template.json 
+          echo "----------------"
+          echo "CMD: acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug"
+          echo "----------------"
 
           ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug
 
@@ -75,5 +80,5 @@ jobs:
 
           export TOKEN=$(gcloud auth print-access-token)
 
-          ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json --debug
-          ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION_NAME --debug
+          ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json --debug
+          ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --debug
