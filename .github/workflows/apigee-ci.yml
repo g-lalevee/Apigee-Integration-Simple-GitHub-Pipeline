@@ -1,5 +1,5 @@
 
-name: Apigee Connectotr / Integration / Proxy CI 
+name: Apigee Connector / Integration / Proxy CI 
 
 on: push
   
@@ -53,7 +53,7 @@ jobs:
       - name: 'List Apigee Connections'
         run: |
           export TOKEN=$(gcloud auth print-access-token)
-          ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r $CONNECTOR-LOCATION  --debug
+          ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r $CONNECTOR -LOCATION  --debug
 
       # Create new Connection
       - name: 'Create Apigee Connection'
