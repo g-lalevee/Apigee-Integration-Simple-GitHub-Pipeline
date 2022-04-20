@@ -70,6 +70,8 @@ jobs:
       # Create new Integration
       - name: 'Create Apigee Integration'
         run: |
+          export TOKEN=$(gcloud auth print-access-token)
+
           # retrieve Connector serviceName
           ./apigee-acidt/bin/acidt connection download -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --directory . --debug
           CONNECTOR_SERVICE_DIRECTORY=$(cat $CONNECTOR_NAME.json | grep "serviceDirectory" | cut -d ':' -f2 | sed -e 's/^ "//' -e 's/"$//')
@@ -79,8 +81,6 @@ jobs:
           sed -i "s/CONNECTOR_NAME/$CONNECTOR_NAME/g" ./integration/integration-bq-template.json
           sed -i "s/CONNECTOR_LOCATION/$CONNECTOR_LOCATION/g" ./integration/integration-bq-template.json
           sed -i "s/CONNECTOR_SERVICE_DIRECTORY/$CONNECTOR_SERVICE_DIRECTORY/g" ./integration/integration-bq-template.json
-
-          export TOKEN=$(gcloud auth print-access-token)
 
           ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json --debug
           ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --debug
