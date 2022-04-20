@@ -6,7 +6,7 @@ on: push
 env:
   # Connection
   CONNECTOR_PROJECT_ID: "bap-emea-apigee-5"
-  CONNECTOR_NAME: "cl-bqdemo-1"
+  CONNECTOR_NAME: "cl-bqdemo1"
   CONNECTOR_LOCATION: "europe-west1"
   SERVICE_ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
 
@@ -15,7 +15,7 @@ env:
   BQ_DATASET_ID: "ApigeeDemos"
   
   # Integration
-  INTEGRATION_NAME: "cl-bqdemo-1"
+  INTEGRATION_NAME: "cl-bqdemo1"
   INTEGRATION_LOCATION: "us"
 
   #  Apigee: 
@@ -64,7 +64,7 @@ jobs:
 
           export TOKEN=$(gcloud auth print-access-token)
 
-          ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json 
+          ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug
 
       # Create new Integration
       - name: 'Create Apigee Integration'
@@ -75,5 +75,5 @@ jobs:
 
           export TOKEN=$(gcloud auth print-access-token)
 
-          ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json
-          ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION_NAME
+          ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json --debug
+          ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION_NAME --debug
