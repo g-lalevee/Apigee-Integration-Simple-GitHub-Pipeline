@@ -5,18 +5,18 @@ on: push
   
 env:
   # Connection
-  CONNECTOR-PROJECT-ID: "bap-emea-apigee-5"
-  CONNECTOR-NAME: "cl-bqdemo-1"
-  CONNECTOR-LOCATION: "europe-west1"
-  SERVICE-ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
+  CONNECTOR_PROJECT_ID: "bap-emea-apigee-5"
+  CONNECTOR_NAME: "cl-bqdemo-1"
+  CONNECTOR_LOCATION: "europe-west1"
+  SERVICE_ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
 
   # Big Query DataSet
-  BQ-PROJECT-ID: "bap-emea-apigee-5"
-  BQ-DATASET-ID: "ApigeeDemos"
+  BQ_PROJECT_ID: "bap-emea-apigee-5"
+  BQ_DATASET_ID: "ApigeeDemos"
   
   # Integration
-  INTEGRATION-NAME: "cl-bqdemo-1"
-  INTEGRATION-LOCATION: "us"
+  INTEGRATION_NAME: "cl-bqdemo-1"
+  INTEGRATION_LOCATION: "us"
 
   #  Apigee: 
   APIGEE_ORG: bap-emea-apigee-5
@@ -53,27 +53,27 @@ jobs:
       - name: 'List Apigee Connections'
         run: |
           export TOKEN=$(gcloud auth print-access-token)
-          ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r $CONNECTOR -LOCATION  --debug
+          ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r $CONNECTOR_LOCATION  --debug
 
       # Create new Connection
       - name: 'Create Apigee Connection'
         run: |
           sed -i "s/BQ-PROJECT-ID/$BQ-PROJECT-ID/g" ./connection/connection-bq-template.json 
-          sed -i "s/BQ-DATASET-ID/$BQ-DATASET-ID/g" ./connection/connection-bq-template.json 
-          sed -i "s/SERVICE-ACCOUNT/$SERVICE-ACCOUNT/g" ./connection/connection-bq-template.json 
+          sed -i "s/BQ_DATASET_ID/$BQ_DATASET_ID/g" ./connection/connection-bq-template.json 
+          sed -i "s/SERVICE_ACCOUNT/$SERVICE_ACCOUNT/g" ./connection/connection-bq-template.json 
 
           export TOKEN=$(gcloud auth print-access-token)
 
-          ./apigee-acidt/bin/acidt connection create -o $CONNECTOR-PROJECT-ID -t $TOKEN -r $CONNECTOR-LOCATION --name $CONNECTOR-NAME --file ./connection/connection-bq-template.json 
+          ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json 
 
       # Create new Integration
       - name: 'Create Apigee Integration'
         run: |
-          sed -i "s/CONNECTOR-PROJECT-ID/$CONNECTOR-PROJECT-ID/g" ./integration/integration-bq-template.json
-          sed -i "s/CONNECTOR-NAME/$CONNECTOR-NAME/g" ./integration/integration-bq-template.json
-          sed -i "s/CONNECTOR-LOCATION/$CONNECTOR-LOCATION/g" ./integration/integration-bq-template.json
+          sed -i "s/CONNECTOR_PROJECT_ID/$CONNECTOR_PROJECT_ID/g" ./integration/integration-bq-template.json
+          sed -i "s/CONNECTOR_NAME/$CONNECTOR_NAME/g" ./integration/integration-bq-template.json
+          sed -i "s/CONNECTOR_LOCATION/$CONNECTOR_LOCATION/g" ./integration/integration-bq-template.json
 
           export TOKEN=$(gcloud auth print-access-token)
 
-          ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR-PROJECT-ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION-NAME --file ./integration/integration-bq-template.json
-          ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR-PROJECT-ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION-NAME
+          ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json
+          ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION-LOCATION --name $INTEGRATION_NAME

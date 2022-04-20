@@ -60,7 +60,7 @@
       "config": {
         "key": "config",
         "value": {
-          "jsonValue": "{\n  \u0027@type\u0027: \u0027type.googleapis.com/enterprise.crm.eventbus.proto.connectors.GenericConnectorTaskConfig\u0027,\n  \u0027connection\u0027: {\n    \u0027connectionName\u0027: \u0027projects/CONNECTOR-PROJECT-ID/locations/CONNECTOR-LOCATION/connections/CONNECTOR-NAME\u0027,\n    \u0027serviceName\u0027: \u0027projects/CONNECTOR-PROJECT-ID/locations/CONNECTOR-LOCATION/namespaces/connectors/services/istio-ingressgateway-connectors\u0027,\n    \u0027connectorVersion\u0027: \u0027projects/CONNECTOR-PROJECT-ID/locations/global/providers/gcp/connectors/bigquery/versions/1\u0027\n  },\n  \u0027operation\u0027: \u0027LIST_ENTITIES\u0027\n}"
+          "jsonValue": "{\n  \u0027@type\u0027: \u0027type.googleapis.com/enterprise.crm.eventbus.proto.connectors.GenericConnectorTaskConfig\u0027,\n  \u0027connection\u0027: {\n    \u0027connectionName\u0027: \u0027projects/CONNECTOR_PROJECT_ID/locations/CONNECTOR_LOCATION/connections/CONNECTOR_NAME\u0027,\n    \u0027serviceName\u0027: \u0027projects/CONNECTOR_PROJECT_ID/locations/CONNECTOR_LOCATION/namespaces/connectors/services/istio-ingressgateway-connectors\u0027,\n    \u0027connectorVersion\u0027: \u0027projects/CONNECTOR_PROJECT_ID/locations/global/providers/gcp/connectors/bigquery/versions/1\u0027\n  },\n  \u0027operation\u0027: \u0027LIST_ENTITIES\u0027\n}"
         }
       },
       "connectorOutputPayload": {

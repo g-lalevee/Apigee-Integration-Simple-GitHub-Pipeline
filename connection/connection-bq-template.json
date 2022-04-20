@@ -3,15 +3,15 @@
   "configVariables": [
     {
       "key": "project_id",
-      "stringValue": "BQ-PROJECT-ID"
+      "stringValue": "BQ_PROJECT_ID"
     },
     {
       "key": "dataset_id",
-      "stringValue": "BQ-DATASET-ID"
+      "stringValue": "BQ_DATASET_ID"
     }
   ],
   "authConfig": {},
-  "serviceAccount": "SERVICE-ACCOUNT"
+  "serviceAccount": "SERVICE_ACCOUNT"
 }
 
 
