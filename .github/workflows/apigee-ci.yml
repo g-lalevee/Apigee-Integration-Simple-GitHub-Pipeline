@@ -67,6 +67,7 @@ jobs:
 
           ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug
 
+
       # Create new Integration
       - name: 'Create Apigee Integration'
         run: |
@@ -75,6 +76,10 @@ jobs:
           # retrieve Connector serviceName
           ./apigee-acidt/bin/acidt connection download -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --directory . --debug
           CONNECTOR_SERVICE_DIRECTORY=$(cat $CONNECTOR_NAME.json | grep "serviceDirectory" | cut -d ':' -f2 | tr -d '"' | xargs)
+          
+          echo "----"
+          echo $CONNECTOR_SERVICE_DIRECTORY
+          echo "---------"
 
           # update Integration configuration file
           sed -i "s/CONNECTOR_PROJECT_ID/$CONNECTOR_PROJECT_ID/g" ./integration/integration-bq-template.json
