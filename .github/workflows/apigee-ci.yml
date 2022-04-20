@@ -74,7 +74,7 @@ jobs:
 
           # retrieve Connector serviceName
           ./apigee-acidt/bin/acidt connection download -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --directory . --debug
-          CONNECTOR_SERVICE_DIRECTORY=$(cat $CONNECTOR_NAME.json | grep "serviceDirectory" | cut -d ':' -f2 | sed 's/"//g' | xargs)
+          CONNECTOR_SERVICE_DIRECTORY=$(cat $CONNECTOR_NAME.json | grep "serviceDirectory" | cut -d ':' -f2 | sed 's@"@@g' | xargs)
 
           # update Integration configuration file
           sed -i "s/CONNECTOR_PROJECT_ID/$CONNECTOR_PROJECT_ID/g" ./integration/integration-bq-template.json
