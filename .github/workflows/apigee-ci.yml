@@ -23,6 +23,7 @@ env:
   APIGEE_ENV: default-dev
   TEST_HOST: 34.117.38.184.nip.io
   SERVICE_ACCOUNT_TOKEN: access-integration@bap-emea-apigee-5.iam.gserviceaccount.com
+  GCP_CREDENTIALS: '${{ secrets.GCP_CREDENTIALS }}'
   
   GIT_BRANCH: ''
   AUTHOR_EMAIL: ''
@@ -115,10 +116,9 @@ jobs:
       # Generate SA key file from secret variable
       - name: Generate SA key file
         run: | 
-          echo '${{ secrets.GCP_CREDENTIALS }}' 
-          echo '${{ secrets.GCP_CREDENTIALS }}' > sa.json
+          echo $GCP_CREDENTIALS 
+          echo $GCP_CREDENTIALS > sa.json
           cat ./sa.json
-
 
       - name: 'Update Integration Request policy'
         run: |
