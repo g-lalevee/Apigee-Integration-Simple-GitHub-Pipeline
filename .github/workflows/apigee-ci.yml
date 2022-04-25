@@ -118,6 +118,8 @@ jobs:
           echo $GCP_CREDENTIALS 
           echo $GCP_CREDENTIALS > sa.json
           cat ./sa.json
+        with:
+          GCP_CREDENTIALS: '${{ secrets.GCP_CREDENTIALS }}'
 
       - name: 'Update Integration Request policy'
         run: |
