@@ -24,6 +24,6 @@
         <IntegrationEndpoint>default</IntegrationEndpoint>
     </RouteRule>
     <HTTPProxyConnection>
-        <BasePath>/v1/int-products</BasePath>
+        <BasePath>/v1/products</BasePath>
     </HTTPProxyConnection>
 </ProxyEndpoint>
