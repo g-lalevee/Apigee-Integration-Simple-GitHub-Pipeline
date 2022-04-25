@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM_getID">
+    <DisplayName>AM_getID</DisplayName>
+    <Properties/>
+    <AssignVariable>
+        <Name>productID</Name>
+        <Ref>request.queryparam.id</Ref>
+        <Value/>
+    </AssignVariable>
+    <Remove>
+        <QueryParams/>
+    </Remove>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

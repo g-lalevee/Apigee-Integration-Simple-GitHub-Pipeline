@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout continueOnError="false" enabled="true" name="FC-formatResponse">
+    <DisplayName>FC-formatResponse</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <SharedFlowBundle>cl-formatSFDC</SharedFlowBundle>
+</FlowCallout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SetIntegrationRequest continueOnError="false" enabled="true" name="set-integration-request">
+    <DisplayName>Set Integration Request</DisplayName>
+    <ProjectId>APIGEE_ORG</ProjectId>
+    <IntegrationName>INTEGRATION_NAME</IntegrationName>
+    <ApiTrigger>api_trigger/products_API_1</ApiTrigger>
+    <Parameters>
+        <Parameter name="productID" type="string">{productID}</Parameter>
+    </Parameters>
+</SetIntegrationRequest>

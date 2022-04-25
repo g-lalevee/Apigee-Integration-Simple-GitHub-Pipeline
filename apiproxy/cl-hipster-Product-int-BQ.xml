@@ -1,0 +1,18 @@
+<APIProxy revision="8" name="cl-hipster-Product-int-BQ">
+    <DisplayName></DisplayName>
+    <Description></Description>
+    <CreatedAt>1650456147676</CreatedAt>
+    <LastModifiedAt>1650456168491</LastModifiedAt>
+    <BasePaths>/v1/int-products</BasePaths>
+    <Policies>
+        <Policy>set-integration-request</Policy>
+        <Policy>FC-formatResponse</Policy>
+        <Policy>AM_getID</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <IntegrationEndpoints>
+        <IntegrationEndpoint>default</IntegrationEndpoint>
+    </IntegrationEndpoints>
+</APIProxy>

@@ -17,16 +17,20 @@ env:
   # Integration
   INTEGRATION_NAME: "cl-bqdemo1"
   INTEGRATION_LOCATION: "us"
-
-  #  Apigee: 
+ 
+  # Apigee Default Target Apigee Organization et environment (can be also be dynamically defined in [Set Variables *] steps)
   APIGEE_ORG: bap-emea-apigee-5
-  APIGEE_CONFIG_ENV: <YOUR-CONF-ENV>
-  TEST_HOST: <YOUR-HOSTNAME>
+  APIGEE_ENV: default-dev
+  TEST_HOST: 34.117.38.184.nip.io
+  SERVICE_ACCOUNT_TOKEN: access-integration@bap-emea-apigee-5.iam.gserviceaccount.com
+  
+  GIT_BRANCH: ''
+  AUTHOR_EMAIL: ''
 
 
 jobs:
-  Apigee-Deploy:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  Integration-Deploy:
+    if: "contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -84,5 +88,51 @@ jobs:
           sed -i "s@CONNECTOR_SERVICE_DIRECTORY@$CONNECTOR_SERVICE_DIRECTORY@g" ./integration/integration-bq-template.json
 
           # create and deploy integration
-          ./apigee-acidt/bin/acidt integration create  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json --debug
-          ./apigee-acidt/bin/acidt integration publish  -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --debug
+          ./apigee-acidt/bin/acidt integration create  -o $APIGEE_ORG -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --file ./integration/integration-bq-template.json --debug
+          ./apigee-acidt/bin/acidt integration publish  -o $APIGEE_ORG -t $TOKEN -r $INTEGRATION_LOCATION --name $INTEGRATION_NAME --debug
+
+  Apigee-Deploy:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+#    needs: Integration-Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: 'Update Integration Request policy'
+        run: |
+          # update Integration configuration file with new connection parameters
+          sed -i "s/APIGEE_ORG/$APIGEE_ORG/g" ./apiproxy/policies/set-integration-request.xml
+          sed -i "s/INTEGRATION_NAME/$INTEGRATION_NAME/g" ./apiproxy/policies/set-integration-request.xml
+
+      # Package & Deploy Apigee proxy (Apigee [Deploy] Maven plugin)
+      - name: mvn package
+        run: mvn process-resources -Pgoogleapi -Dcommit=$GIT_COMMIT -Dbranch=$GIT_BRANCH -Dauthor=$AUTHOR_EMAIL -Ddeployment.suffix=''
+
+      - name: mvn config
+        run: mvn apigee-enterprise:configure -q -Pgoogleapi -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV  -Ddeployment.suffix='' 
+
+      - name: mvn deploy proxy xhybrid
+        run: mvn apigee-enterprise:deploy -q -Pgoogleapi -Denv=$APIGEE_ENV -Dsa=sa.json -Dorg=$APIGEE_ORG -DgoogleTokenEmail=$SERVICE_ACCOUNT_TOKEN -Ddeployment.suffix=''
+
+      # Run Integration testing (Apickli) + upload artifact (cucumber_report.html)
+      - name: apickli
+        run: |
+          # update apickli config file (init.js) with API hostname and base path
+          export API_BASEPATH="/airports-cicd/v1"
+          sed -i "s@api_basepath@$API_BASEPATH@g" ./test/integration/features/support/init.js
+          sed -i "s@organization_hostname@$TEST_HOST@g" ./test/integration/features/support/init.js
+
+          # NODE_TLS_REJECT_UNAUTHORIZED required to support self signed certificate
+          # export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+          node ./node_modules/.bin/cucumber-js  ./test/integration --format json:./report.json
+          node ./test/integration/index.js
+
+      - name: Archive Apickli results
+        uses: actions/upload-artifact@v2
+        with:
+          name: apickli-report
+          path: ./cucumber_report.html
+          retention-days: 5
+
+
