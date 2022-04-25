@@ -115,7 +115,9 @@ jobs:
       # Generate SA key file from secret variable
       - name: Generate SA key file
         run: | 
+          echo $GCP_CREDENTIALS 
           echo $GCP_CREDENTIALS > sa.json
+          cat ./sa.json
 
       - name: 'Update Integration Request policy'
         run: |
@@ -131,9 +133,7 @@ jobs:
         run: mvn apigee-enterprise:configure -q -Pgoogleapi -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV  -Ddeployment.suffix='' 
 
       - name: mvn deploy proxy xhybrid
-        run: |
-          cat ./sa.json
-          mvn apigee-enterprise:deploy -Pgoogleapi -Denv=$APIGEE_ENV -Dsa=sa.json -Dorg=$APIGEE_ORG -DgoogleTokenEmail=$SERVICE_ACCOUNT_TOKEN -Ddeployment.suffix=''
+        run: mvn apigee-enterprise:deploy -Pgoogleapi -Denv=$APIGEE_ENV -Dsa=sa.json -Dorg=$APIGEE_ORG -DgoogleTokenEmail=$SERVICE_ACCOUNT_TOKEN -Ddeployment.suffix=''
 
       # Run Integration testing (Apickli) + upload artifact (cucumber_report.html)
       - name: apickli
