@@ -186,11 +186,11 @@ limitations under the License.
 			<!-- Next Generation SaaS and hybrid -->
 			<id>googleapi</id>
 			<properties>
-				<apigee.plugin.version>2.1.0</apigee.plugin.version>
+				<apigee.plugin.version>2.3.0</apigee.plugin.version>
 				<apigee.hosturl>https://apigee.googleapis.com</apigee.hosturl>
 				<apigee.bearer>${token}</apigee.bearer> <!-- this takes precedence over service account file -->
 				<apigee.serviceaccount.file>${sa}</apigee.serviceaccount.file>
-				<apigee.googletoken.email>${googleTokenEmail}</apigee.googletoken.email> <!-- Available in Apigee X and Apigee hybrid 1.6 + -->
+                <apigee.googletoken.email>${googleTokenEmail}</apigee.googletoken.email> <!-- Available in Apigee X and Apigee hybrid 1.6 + -->
 			</properties>
 			<build>
 				<plugins>
