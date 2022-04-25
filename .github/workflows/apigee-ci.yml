@@ -114,10 +114,9 @@ jobs:
 
       # Generate SA key file from secret variable
       - name: Generate SA key file
-        if: env.API_VERSION == 'googleapi'
         run: | 
           echo $GCP_CREDENTIALS > sa.json
-          
+
       - name: 'Update Integration Request policy'
         run: |
           # update Integration configuration file with new connection parameters
