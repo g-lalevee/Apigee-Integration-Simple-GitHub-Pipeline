@@ -115,10 +115,10 @@ jobs:
       # Generate SA key file from secret variable
       - name: Generate SA key file
         run: | 
-          echo ${{ secrets.GCP_CREDENTIALS }} 
-          echo ${{ secrets.GCP_CREDENTIALS }} > sa.json
+          echo '${{ secrets.GCP_CREDENTIALS }}' 
+          echo '${{ secrets.GCP_CREDENTIALS }}' > sa.json
           cat ./sa.json
-          
+
 
       - name: 'Update Integration Request policy'
         run: |
