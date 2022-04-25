@@ -21,7 +21,7 @@ limitations under the License.
 	<groupId>apigee-devrel</groupId>
 	<artifactId>hipster-product</artifactId>
 	<version>v1</version>
-	<name>airports-cicd${deployment.suffix}</name>
+	<name>intProducts${deployment.suffix}</name>
 	<packaging>pom</packaging>
 
 	<pluginRepositories>
