@@ -7,7 +7,7 @@ env:
   # Connection
   CONNECTOR_PROJECT_ID: "bap-emea-apigee-5"
   CONNECTOR_NAME: "cl-bqdemo1"
-  CONNECTOR_LOCATION: "europe-west1"
+  CONNECTOR_LOCATION: "us-west1"
   SERVICE_ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
 
   # Big Query DataSet
