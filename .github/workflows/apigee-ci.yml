@@ -173,6 +173,7 @@ jobs:
           node ./node_modules/.bin/cucumber-js  ./test/integration --format json:./report.json
           node ./test/integration/index.js
 
+
       - name: Archive Apickli results
         if: success() || failure()
         uses: actions/upload-artifact@v2
