@@ -1,17 +1,21 @@
-<APIProxy revision="8" name="cl-hipster-Product-int-BQ">
+<APIProxy revision="4" name="intProducts">
     <DisplayName></DisplayName>
     <Description></Description>
-    <CreatedAt>1650456147676</CreatedAt>
-    <LastModifiedAt>1650456168491</LastModifiedAt>
-    <BasePaths>/v1/int-products</BasePaths>
+    <CreatedAt>1650985928048</CreatedAt>
+    <LastModifiedAt>1650985964039</LastModifiedAt>
+    <BasePaths>/v1/products</BasePaths>
     <Policies>
         <Policy>set-integration-request</Policy>
-        <Policy>FC-formatResponse</Policy>
         <Policy>AM_getID</Policy>
+        <Policy>EV-getResponseContent</Policy>
+        <Policy>JS-formatResult</Policy>
     </Policies>
     <ProxyEndpoints>
         <ProxyEndpoint>default</ProxyEndpoint>
     </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://JS-formatResult.js</Resource>
+    </Resources>
     <IntegrationEndpoints>
         <IntegrationEndpoint>default</IntegrationEndpoint>
     </IntegrationEndpoints>

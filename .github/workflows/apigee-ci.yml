@@ -4,17 +4,18 @@ name: Apigee Connector / Integration / Proxy CI
 on: push
   
 env:
+  # Big Query DataSet
+  BQ_PROJECT_ID: "bap-emea-apigee-5"
+  BQ_DATASET_ID: "ApigeeDemos"
+  
   # Connection
   CONNECTOR_PROJECT_ID: "bap-emea-apigee-5"
   CONNECTOR_NAME: "cl-bqdemo1"
   CONNECTOR_LOCATION: "us-west1"
   SERVICE_ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
 
-  # Big Query DataSet
-  BQ_PROJECT_ID: "bap-emea-apigee-5"
-  BQ_DATASET_ID: "ApigeeDemos"
-  
   # Integration
+  # (Integration will be deployed in the same project as Apigee Proxy = APIGEE_ORG)
   INTEGRATION_NAME: "cl-bqdemo1"
   INTEGRATION_LOCATION: "us"
  
@@ -22,7 +23,11 @@ env:
   APIGEE_ORG: bap-emea-apigee-5
   APIGEE_ENV: default-dev
   TEST_HOST: 34.117.38.184.nip.io
+
+  # SA email required to deploy Apigee proxy that requires Apigee to generate the GoogleAccessToken or GoogleIDToken to use Integration
   SERVICE_ACCOUNT_TOKEN: access-integration@bap-emea-apigee-5.iam.gserviceaccount.com
+
+  # SA key file content used to deploy Connection, Integraiton, Proxy
   GCP_CREDENTIALS: '${{ secrets.GCP_CREDENTIALS }}'
   
   GIT_BRANCH: ''
@@ -36,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      # Apigee Acidt: install from GitHub g-lalevee/apigee-acidt
+      # Apigee Acidt: install Connection/Integration CLI from GitHub g-lalevee/apigee-acidt
       - name: 'Install Apigee Acidt'
         run: |
           git clone https://github.com/g-lalevee/apigee-acidt.git
@@ -60,6 +65,7 @@ jobs:
           export TOKEN=$(gcloud auth print-access-token)
           ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r $CONNECTOR_LOCATION  --debug
 
+
       # Create new Connection
       - name: 'Create Apigee Connection'
         run: |
@@ -69,7 +75,6 @@ jobs:
           sed -i "s/SERVICE_ACCOUNT/$SERVICE_ACCOUNT/g" ./connection/connection-bq-template.json 
 
           export TOKEN=$(gcloud auth print-access-token)
-
           ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug
 
 

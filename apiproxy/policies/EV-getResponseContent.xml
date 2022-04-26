@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-getResponseContent">
+    <DisplayName>EV-getResponseContent</DisplayName>
+    <Source>response</Source>
+    <JSONPayload>
+        <Variable name="combinedresponse" type="string">
+            <JSONPath>$..eventParameters.parameters[0].value.jsonValue</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <VariablePrefix>integrationresponse</VariablePrefix>
+</ExtractVariables>

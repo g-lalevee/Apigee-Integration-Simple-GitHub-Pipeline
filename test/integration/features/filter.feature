@@ -6,7 +6,7 @@ Feature: List of Products
   Scenario: I should be able to list all products
     When I GET /
     Then response code should be 200
-    And response body path $.products should be of type array with length 9
+    And response body path $ should be of type array with length 9
 
    Scenario: I should be able to identify a product by its ID
     When I GET ?id=9SIQT8TOJO

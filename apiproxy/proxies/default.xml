@@ -11,7 +11,10 @@
         </Request>
         <Response>
             <Step>
-                <Name>FC-formatResponse</Name>
+                <Name>EV-getResponseContent</Name>
+            </Step>
+            <Step>
+                <Name>JS-formatResult</Name>
             </Step>
         </Response>
     </PreFlow>
