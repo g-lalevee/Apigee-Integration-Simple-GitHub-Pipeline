@@ -16,6 +16,10 @@
             <Step>
                 <Name>JS-formatResult</Name>
             </Step>
+            <Step>
+                <Name>RF-404NotFound</Name>
+                <Condition>(response.content = "[]" )</Condition>
+            </Step>
         </Response>
     </PreFlow>
     <Flows/>
