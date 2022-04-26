@@ -4,7 +4,7 @@
     <Source>response</Source>
     <JSONPayload>
         <Variable name="combinedresponse" type="string">
-            <JSONPath>$..eventParameters.parameters[0].value.jsonValue</JSONPath>
+            <JSONPath>$.outputParameters</JSONPath>
         </Variable>
     </JSONPayload>
     <VariablePrefix>integrationresponse</VariablePrefix>

@@ -7,10 +7,6 @@
         <Ref>request.queryparam.id</Ref>
         <Value/>
     </AssignVariable>
-    <AssignVariable>
-        <Name>entity</Name>
-        <Value>products</Value>
-    </AssignVariable>
     <Remove>
         <QueryParams/>
     </Remove>

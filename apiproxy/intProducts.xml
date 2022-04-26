@@ -1,15 +1,15 @@
-<APIProxy revision="11" name="intProducts">
+<APIProxy revision="12" name="intProducts">
     <DisplayName></DisplayName>
     <Description></Description>
-    <CreatedAt>1651005532883</CreatedAt>
-    <LastModifiedAt>1651005532883</LastModifiedAt>
+    <CreatedAt>1651010273439</CreatedAt>
+    <LastModifiedAt>1651010273439</LastModifiedAt>
     <BasePaths>/v1/products</BasePaths>
     <Policies>
         <Policy>set-integration-request</Policy>
         <Policy>JS-formatResult</Policy>
         <Policy>EV-getResponseContent</Policy>
-        <Policy>AM_getID</Policy>
         <Policy>RF-404NotFound</Policy>
+        <Policy>AM_getID</Policy>
     </Policies>
     <ProxyEndpoints>
         <ProxyEndpoint>default</ProxyEndpoint>
