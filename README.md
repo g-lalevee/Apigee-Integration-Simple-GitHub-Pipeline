@@ -76,7 +76,6 @@ gcloud projects add-iam-policy-binding "$PROJECT_ID" \
   --member="serviceAccount:$GitHub_SA" \
   --role="roles/integrations.apigeeIntegrationAdminRole"
 
-
 gcloud projects add-iam-policy-binding "$PROJECT_ID" \
   --member="serviceAccount:$GitHub_SA" \
   --role="roles/roles/connectors.admin"
@@ -132,13 +131,12 @@ Add GitHub secrets `GCP_CREDENTIALS` to store your GCP Service Account json key:
 The Apigee Integration deployed by this sample exposes a BigQuery dataset and table containing a list of products.
 The `bq-sample-data` folder contains script and data to create products table in your BigQuery.
 
-Update the `./bq-sample-data/setup_bigquery.sh` file with your values:
+Update the `./bq-sample-data/setup_bigquery.sh` file with your values (don't change table name):
 
 ```lang-shell
 export BQ_PROJECT_ID="YOUR_PROJECT"
 export BQ_DATASET_ID="YOUR_DATASET"
 export BQ_DATASET_LOCATION="YOUR_REGION"
-export BQ_TABLE_NAME="YOUR_TABLE"
 ```
 
 Run the `./bq-sample-data/setup_bigquery.sh` shell script to create the Dataset and table. It outputs the entries from the table which contains multiple products.
@@ -167,8 +165,34 @@ Waiting on bqjob_r215f34382d4bf9c2_000001807208f446_1 ... (1s) Current status: D
 Table created
 ```
 
+## Run the pipeline
 
+Using your favorite IDE...
+1.  Update the **.github/workflows/apigee-ci.yml** file.<BR>
+In **"env"** section (workflow level)...
+    - BigQuery Variables
+        - change `BQ_PROJECT_ID` value by your source BigQuery GCP project name
+        - change `BQ_DATASET_ID` value by your source BigQuery Dataset name
+    - Connection Variables
+        - change `CONNECTOR_PROJECT_ID` value by your Connection GCP project name
+        - change `CONNECTOR_NAME` value by your Connection name
+        - change `CONNECTOR_LOCATION` value by your Connection deployment region name
+        - change `CONNECTOR_SERVICE_ACCOUNT` value by your Connection Google Cloud Service Account (BQ Access credentials)
+    - Integration Variables
+        - change `INTEGRATION_NAME` value by your Integration name
+        - change `INTEGRATION_LOCATION` value by your Integration deployment region name
+    - Apigee Proxy Variables
+        - change `APIGEE_ORG` value by your Apigee organization name
+        - change `APIGEE_ENV` value by your Apigee environment name
+        - change `TEST_HOST` value by the API hostname
+        - change `SERVICE_ACCOUNT_TOKEN` value by the Google Cloud Service Account for Apigee Proxy to call Google API
 
+3. Save
+4. Commit, Push.. et voila!
+
+Use the GitHub UI to monitor your pipeline execution:
+
+- Go to your GitHub repository > **Actions** (tab). You can see your workflow running.<BR>Download apicki test results at the end.
 
 
 
