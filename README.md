@@ -24,7 +24,9 @@ The CICD pipeline includes:
 
 ## Setup
 
-### Google Cloud Service Account
+### Google Cloud Service Accounts
+
+3 Google Cloud Service Accounts are required to run this pipeline.
 
 1. Google Cloud Service Account for Apigee Connection
 
