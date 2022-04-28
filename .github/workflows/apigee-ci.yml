@@ -12,7 +12,7 @@ env:
   CONNECTOR_PROJECT_ID: "bap-emea-apigee-5"
   CONNECTOR_NAME: "cl-bqdemo1"
   CONNECTOR_LOCATION: "us-west1"
-  SERVICE_ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
+  CONNECTOR_SERVICE_ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
 
   # Integration
   # (Integration will be deployed in the same project as Apigee Proxy = APIGEE_ORG)
@@ -72,7 +72,7 @@ jobs:
           sed -i "s/CONNECTOR_PROJECT_ID/$CONNECTOR_PROJECT_ID/g" ./connection/connection-bq-template.json 
           sed -i "s/BQ_PROJECT_ID/$BQ_PROJECT_ID/g" ./connection/connection-bq-template.json 
           sed -i "s/BQ_DATASET_ID/$BQ_DATASET_ID/g" ./connection/connection-bq-template.json 
-          sed -i "s/SERVICE_ACCOUNT/$SERVICE_ACCOUNT/g" ./connection/connection-bq-template.json 
+          sed -i "s/SERVICE_ACCOUNT/$CONNECTOR_SERVICE_ACCOUNT/g" ./connection/connection-bq-template.json 
 
           export TOKEN=$(gcloud auth print-access-token)
           ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug
