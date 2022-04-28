@@ -11,11 +11,17 @@
 
 Simple implementation for a CI/CD pipeline for Apigee Proxy with Integration target using GitHub repository, 
 [CI/CD with GitHub](https://docs.GitHub.com/ee/ci/introduction/) and gcloud command (GitHub Action).
+The pipeline deploys a Google BigQuery Connector, An Apigee Integration Workflow and an Apigee Proxy as illustrated hereunder:
+
+![pipeline](./images/pipeline.jpg)
+
 
 The CICD pipeline includes:
 
 - Deployment of the Apigee Connection and Apigee Integration using [acidt](https://github.com/g-lalevee/apigee-acidt) (requires [setup-gcloud GitHub Action](https://github.com/google-github-actions/setup-gcloud))
 - Packaging and deployment of the API proxy bundle using [Apigee Deploy Maven Plugin](https://github.com/apigee/apigee-deploy-maven-plugin)
 - Integration testing of the deployed proxy using [apickli](https://github.com/apickli/apickli)
+
+
 
 

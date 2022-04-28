@@ -110,12 +110,14 @@ jobs:
         with:
           java-version: 1.8
 
+
       - name: Cache the Maven packages to speed up build
         uses: actions/cache@v1
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2   
+
 
       # Create Dependencies (npm) Cache 
       - name: Cache node modules
@@ -136,6 +138,7 @@ jobs:
       - name: Install Dependencies
         run: npm install --silent --no-fund
 
+
       # Generate SA key file from secret variable
       - name: Generate SA key file
         run: | 
@@ -143,11 +146,13 @@ jobs:
           echo $GCP_CREDENTIALS > sa.json
           cat ./sa.json
 
+
       - name: 'Update Integration Request policy'
         run: |
           # update Integration configuration file with new connection parameters
           sed -i "s/APIGEE_ORG/$APIGEE_ORG/g" ./apiproxy/policies/set-integration-request.xml
           sed -i "s/INTEGRATION_NAME/$INTEGRATION_NAME/g" ./apiproxy/policies/set-integration-request.xml
+
 
       # Package & Deploy Apigee proxy (Apigee [Deploy] Maven plugin)
       - name: mvn package
