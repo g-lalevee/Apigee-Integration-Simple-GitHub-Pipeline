@@ -1,4 +1,4 @@
-[![Generic badge](https://img.shields.io/badge/status-beta-yellow.svg)](https://shields.io/) ![GitHub last commit](https://img.shields.io/github/last-commit/g-lalevee/Apigee-Integration-Simple-GitHub-Pipeline) 
+![Generic badge](https://img.shields.io/badge/status-work%20in%20progress-orange) [![Generic badge](https://img.shields.io/badge/status-beta-yellow.svg)](https://shields.io/) ![GitHub last commit](https://img.shields.io/github/last-commit/g-lalevee/Apigee-Integration-Simple-GitHub-Pipeline) 
 
 
 # Apigee Simple Github End-to-End Pipeline for Apigee proxy with Integration target.
