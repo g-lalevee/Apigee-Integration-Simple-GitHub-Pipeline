@@ -7,17 +7,17 @@ env:
   # Big Query DataSet
   BQ_PROJECT_ID: "bap-emea-apigee-5"
   BQ_DATASET_ID: "ApigeeDemos"
-  BQ_TABLE_NAME: "ApigeeDemos"
+  BQ_TABLE_NAME: "cl-bqdemo"
   
   # Connection
   CONNECTOR_PROJECT_ID: "bap-emea-apigee-5"
-  CONNECTOR_NAME: "cl-bqdemo1"
+  CONNECTOR_NAME: "cl-bqdemo"
   CONNECTOR_LOCATION: "us-west1"
   CONNECTOR_SERVICE_ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
 
   # Integration
   # (Integration will be deployed in the same project as Apigee Proxy = APIGEE_ORG)
-  INTEGRATION_NAME: "cl-bqdemo1"
+  INTEGRATION_NAME: "cl-bqdemo"
   INTEGRATION_LOCATION: "us"
  
   # Apigee Default Target Apigee Organization et environment (can be also be dynamically defined in [Set Variables *] steps)
