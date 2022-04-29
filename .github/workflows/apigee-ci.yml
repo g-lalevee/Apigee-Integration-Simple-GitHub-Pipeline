@@ -63,7 +63,7 @@ jobs:
       - name: 'List Apigee Connections'
         run: |
           export TOKEN=$(gcloud auth print-access-token)
-          ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r $CONNECTOR_LOCATION  --debug
+          ./apigee-acidt/bin/acidt connection list -o $APIGEE_ORG -t $TOKEN -r $CONNECTOR_LOCATION  
 
 
       # Create new Connection
@@ -75,7 +75,7 @@ jobs:
           sed -i "s/SERVICE_ACCOUNT/$CONNECTOR_SERVICE_ACCOUNT/g" ./connection/connection-bq-template.json 
 
           export TOKEN=$(gcloud auth print-access-token)
-          ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json  --debug
+          ./apigee-acidt/bin/acidt connection create -o $CONNECTOR_PROJECT_ID -t $TOKEN -r $CONNECTOR_LOCATION --name $CONNECTOR_NAME --file ./connection/connection-bq-template.json 
 
 
       # Create new Integration
@@ -163,7 +163,7 @@ jobs:
         run: mvn apigee-enterprise:configure -q -Pgoogleapi -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV  -Ddeployment.suffix='' 
 
       - name: mvn deploy proxy xhybrid
-        run: mvn apigee-enterprise:deploy -Pgoogleapi -Denv=$APIGEE_ENV -Dsa=sa.json -Dorg=$APIGEE_ORG -DgoogleTokenEmail=$SERVICE_ACCOUNT_TOKEN -Ddeployment.suffix=''
+        run: mvn apigee-enterprise:deploy -q -Pgoogleapi -Denv=$APIGEE_ENV -Dsa=sa.json -Dorg=$APIGEE_ORG -DgoogleTokenEmail=$SERVICE_ACCOUNT_TOKEN -Ddeployment.suffix=''
 
       # Run Integration testing (Apickli) + upload artifact (cucumber_report.html)
       - name: apickli
