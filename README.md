@@ -15,12 +15,38 @@ The pipeline deploys a Google BigQuery Connector, An Apigee Integration Workflow
 
 ![pipeline](./images/pipeline.jpg)
 
-
 The CICD pipeline includes:
 
 - Deployment of the Apigee Connection and Apigee Integration using [acidt](https://github.com/g-lalevee/apigee-acidt) (requires [setup-gcloud GitHub Action](https://github.com/google-github-actions/setup-gcloud))
 - Packaging and deployment of the API proxy bundle using [Apigee Deploy Maven Plugin](https://github.com/apigee/apigee-deploy-maven-plugin)
 - Integration testing of the deployed proxy using [apickli](https://github.com/apickli/apickli)
+
+
+This repository contains:
+
+```sh
+.
+└── .github / workflows                                   : GitHub pipeline file
+|   └── ...
+└── apiproxy                                              : Apigee API proxy 
+|   └── ...
+└── bq-sample-data                                        : Data and script to create BQ sample data
+|   └── ...
+└── connection                                 
+|   └── connection-bq-template.json                       : Apigee BQ Connection configuration file variabilized
+└── integration    
+|   └──  integration-bq-template.json                     : Apigee Integration configuration file variabilized
+└── test                                                  : Apickli (integration test) 
+    └── ...
+```
+
+---
+**NOTE**
+
+`connection/connection-bq-template.json` and `integration/integration-bq-template.json` have been variabilized to allow the choice of names and target regions during deployment.
+
+---
+
 
 ## Setup
 
@@ -175,6 +201,7 @@ In **"env"** section (workflow level)...
     - BigQuery Variables
         - change `BQ_PROJECT_ID` value by your source BigQuery GCP project name
         - change `BQ_DATASET_ID` value by your source BigQuery Dataset name
+        - change `BQ_TABLE_NAME` value by your source BigQuery table name
     - Connection Variables
         - change `CONNECTOR_PROJECT_ID` value by your Connection GCP project name
         - change `CONNECTOR_NAME` value by your Connection name
@@ -188,6 +215,17 @@ In **"env"** section (workflow level)...
         - change `APIGEE_ENV` value by your Apigee environment name
         - change `TEST_HOST` value by the API hostname
         - change `SERVICE_ACCOUNT_TOKEN` value by the Google Cloud Service Account for Apigee Proxy to call Google API
+
+
+---
+**NOTE**
+
+
+
+In this sample, we replaced the folder with the name of the target environment (and containing its configuration) by a variable : it will be automatically replaced by the value of `APIGEE_CONFIG_ENV`
+
+---
+
 
 3. Save
 4. Commit, Push.. et voila!
