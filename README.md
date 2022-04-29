@@ -1,4 +1,4 @@
-![Generic badge](https://img.shields.io/badge/status-work%20in%20progress-orange) [![Generic badge](https://img.shields.io/badge/status-beta-yellow.svg)](https://shields.io/) ![GitHub last commit](https://img.shields.io/github/last-commit/g-lalevee/Apigee-Integration-Simple-GitHub-Pipeline) 
+ ![Generic badge](https://img.shields.io/badge/status-beta-yellow.svg) ![GitHub last commit](https://img.shields.io/github/last-commit/g-lalevee/Apigee-Integration-Simple-GitHub-Pipeline) 
 
 
 # Apigee Simple Github End-to-End Pipeline for Apigee proxy with Integration target.
@@ -216,25 +216,15 @@ In **"env"** section (workflow level)...
         - change `TEST_HOST` value by the API hostname
         - change `SERVICE_ACCOUNT_TOKEN` value by the Google Cloud Service Account for Apigee Proxy to call Google API
 
-
----
-**NOTE**
-
-
-
-In this sample, we replaced the folder with the name of the target environment (and containing its configuration) by a variable : it will be automatically replaced by the value of `APIGEE_CONFIG_ENV`
-
----
-
-
 3. Save
 4. Commit, Push.. et voila!
 
 Use the GitHub UI to monitor your pipeline execution:
 
-- Go to your GitHub repository > **Actions** (tab). You can see your workflow running.<BR>Download apicki test results at the end.
+- Go to your GitHub repository > **Actions** (tab). You can see your workflow running.<BR>
+At the end, from **Action > Summary** menu, download apicki test results (html format).
 
-
+![running-pipeline](images/Integration-Pipeline.gif)
 
 
 
