@@ -2,39 +2,37 @@
 name: Apigee Connector / Integration / Proxy CI 
 
 on: push
-  
+
 env:
   # Big Query DataSet
-  BQ_PROJECT_ID: "bap-emea-apigee-5"
-  BQ_DATASET_ID: "ApigeeDemos"
-  BQ_TABLE_NAME: "cl-bqdemo"
+  BQ_PROJECT_ID: "YOUR-PROJECT_ID"
+  BQ_DATASET_ID: "YOUR-DATASET_ID"
+  BQ_TABLE_NAME: "int-bqdemo"
   
   # Connection
-  CONNECTOR_PROJECT_ID: "bap-emea-apigee-5"
-  CONNECTOR_NAME: "cl-bqdemo"
+  CONNECTOR_PROJECT_ID: "YOUR-PROJECT_ID"
+  CONNECTOR_NAME: "int-bqdemo"
   CONNECTOR_LOCATION: "us-west1"
-  CONNECTOR_SERVICE_ACCOUNT: "1020259423319-compute@developer.gserviceaccount.com"
+  CONNECTOR_SERVICE_ACCOUNT: "YOUR-CONNECTOR-SA"
 
   # Integration
   # (Integration will be deployed in the same project as Apigee Proxy = APIGEE_ORG)
-  INTEGRATION_NAME: "cl-bqdemo"
+  INTEGRATION_NAME: "int-bqdemo"
   INTEGRATION_LOCATION: "us"
  
   # Apigee Default Target Apigee Organization et environment (can be also be dynamically defined in [Set Variables *] steps)
-  APIGEE_ORG: bap-emea-apigee-5
-  APIGEE_ENV: default-dev
-  TEST_HOST: 34.117.38.184.nip.io
+  APIGEE_ORG: "YOUR-ORGANIZATION"
+  APIGEE_ENV: "YOUR-ENV"
+  TEST_HOST: "YOUR-HOSTNAME"
 
   # SA email required to deploy Apigee proxy that requires Apigee to generate the GoogleAccessToken or GoogleIDToken to use Integration
-  SERVICE_ACCOUNT_TOKEN: access-integration@bap-emea-apigee-5.iam.gserviceaccount.com
+  SERVICE_ACCOUNT_TOKEN: "YOUR-SA-TOKEN"
 
   # SA key file content used to deploy Connection, Integraiton, Proxy
   GCP_CREDENTIALS: '${{ secrets.GCP_CREDENTIALS }}'
   
   GIT_BRANCH: ''
   AUTHOR_EMAIL: ''
-
-
 
 jobs:
   Integration-Deploy:

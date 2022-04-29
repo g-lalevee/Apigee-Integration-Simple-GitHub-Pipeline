@@ -26,17 +26,17 @@ This repository contains:
 
 ```sh
 .
-└── .github / workflows                                   : GitHub pipeline file
+└── .github / workflows                 : GitHub pipeline file
 |   └── ...
-└── apiproxy                                              : Apigee API proxy 
+└── apiproxy                            : Apigee API proxy 
 |   └── ...
-└── bq-sample-data                                        : Data and script to create BQ sample data
+└── bq-sample-data                      : Data and script to create BQ sample data
 |   └── ...
 └── connection                                 
-|   └── connection-bq-template.json                       : Apigee BQ Connection configuration file variabilized
+|   └── connection-bq-template.json     : Apigee BQ Connection configuration file variabilized
 └── integration    
-|   └──  integration-bq-template.json                     : Apigee Integration configuration file variabilized
-└── test                                                  : Apickli (integration test) 
+|   └──  integration-bq-template.json   : Apigee Integration configuration file variabilized
+└── test                                : Apickli (integration test) 
     └── ...
 ```
 
