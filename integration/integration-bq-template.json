@@ -42,7 +42,7 @@
       "entityType": {
         "key": "entityType",
         "value": {
-          "stringValue": "products"
+          "stringValue": "BQ_TABLE_NAME"
         }
       },
       "listEntitiesPageSize": {
