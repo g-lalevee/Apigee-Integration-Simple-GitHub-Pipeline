@@ -36,8 +36,9 @@ This repository contains:
 |   └── connection-bq-template.json     : Apigee BQ Connection configuration file variabilized
 └── integration    
 |   └──  integration-bq-template.json   : Apigee Integration configuration file variabilized
-└── test                                : Apickli (integration test) 
-    └── ...
+└── test                                : Apickli (integration test) configuration and test files
+|   └── ...
+└── ...
 ```
 
 ---
